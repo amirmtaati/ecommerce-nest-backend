@@ -17,8 +17,18 @@ export class ProductsService {
 
             return product;
         } catch (err) {
-            throw new HttpException(err.message, 400);
+            throw new HttpException("Can't add product", 400);
         }
+    }
+
+    async deleteProduct(id: string) {
+        const deletProduct = await prisma.product.delete({
+            where: {
+                id,
+            },
+        });
+
+        return deletProduct;
     }
 
     async products() {
@@ -26,7 +36,7 @@ export class ProductsService {
             const products = await prisma.product.findMany();
             return products;
         } catch (err) {
-            throw new HttpException(err, 400);
+            throw new HttpException("Can't get products", 400);
         }
     }
 }

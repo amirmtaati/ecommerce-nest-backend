@@ -23,4 +23,9 @@ export class ProductsResolver {
     async products() {
         return this.productsService.products();
     }
+
+    @Query("getProduct")
+    async getProduct(@Args("id") id: string) {
+        return this.productsService.getProduct(id);
+    }
 }

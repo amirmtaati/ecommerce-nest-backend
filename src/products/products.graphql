@@ -8,6 +8,10 @@ type Query {
   products: [Product]
 }
 
+type Query {
+  getProduct(id: String!): Product
+}
+
 type Mutation {
   createProduct(title: String! , desc: String! , price: Int!): Product
 }
@@ -15,4 +19,6 @@ type Mutation {
 type Mutation {
   deleteProduct(id: String!): Product
 }
+
+
 

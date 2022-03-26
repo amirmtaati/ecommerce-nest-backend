@@ -39,4 +39,17 @@ export class ProductsService {
             throw new HttpException("Can't get products", 400);
         }
     }
+
+    async getProduct(id: string) {
+        try {
+            const product = await prisma.product.findUnique({
+                where: {
+                    id,
+                },
+            });
+            return product;
+        } catch (err) {
+            throw new HttpException("Can't get product", 400);
+        }
+    }
 }

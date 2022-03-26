@@ -14,6 +14,11 @@ export class ProductsResolver {
         return this.productsService.add(title, desc, price);
     }
 
+    @Mutation("deleteProduct")
+    async removeProduct(@Args("id") id : string) {
+        return this.productsService.deleteProduct(id);
+    }
+
     @Query('products')
     async products() {
         return this.productsService.products();

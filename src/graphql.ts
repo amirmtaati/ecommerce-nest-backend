@@ -15,6 +15,8 @@ export class Product {
 
 export abstract class IQuery {
     abstract products(): Nullable<Nullable<Product>[]> | Promise<Nullable<Nullable<Product>[]>>;
+
+    abstract getProduct(id: string): Nullable<Product> | Promise<Nullable<Product>>;
 }
 
 export abstract class IMutation {

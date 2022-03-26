@@ -1,0 +1,24 @@
+version: "3.7"
+services:
+  db:
+    image: postgres
+    environment:
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_DB: db-example
+    volumes:
+      - ./pgdata:/var/lib/postgresql/data
+    ports:
+      - '5001:5432'
+ 
+  nest-api:
+    container_name: nest-api
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - '3000:3000'
+    depends_on:
+      - db
+    env_file:
+      - .env 

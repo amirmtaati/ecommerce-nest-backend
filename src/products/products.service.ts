@@ -17,7 +17,16 @@ export class ProductsService {
 
             return product;
         } catch (err) {
-            throw new HttpException("Can't add product", 400);
+            throw new HttpException(err.message, 400);
+        }
+    }
+
+    async products() {
+        try {
+            const products = await prisma.product.findMany();
+            return products;
+        } catch (err) {
+            throw new HttpException(err, 400);
         }
     }
 }

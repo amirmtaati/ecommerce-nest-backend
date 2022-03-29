@@ -4,6 +4,3 @@ type User {
   password: String,
 }
 
-type Mutation {
-  signup(username: String! , email: String! , password: String! , passConfirm: String!): User
-}

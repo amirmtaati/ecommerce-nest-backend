@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { HttpException } from '@nestjs/common';
-import { PrismaClient } from '@prisma/client';
-const prisma = new PrismaClient();
+import {prisma} from  "../../prisma";
+
 
 @Injectable()
 export class ProductsService {
@@ -50,6 +50,29 @@ export class ProductsService {
             return product;
         } catch (err) {
             throw new HttpException("Can't get product", 400);
+        }
+    }
+
+    async updateProduct(
+        id: string,
+        title?: string,
+        desc?: string,
+        price?: number,
+    ) {
+        try {
+        const product = await prisma.product.update({
+            where: {
+                id,
+            },
+            data: {
+                title,
+                desc,
+                price
+            },
+        });
+        return product;
+        } catch(err) {
+            throw new HttpException("Can't update product" , 400);
         }
     }
 }

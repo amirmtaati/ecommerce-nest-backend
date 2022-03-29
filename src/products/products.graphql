@@ -20,5 +20,6 @@ type Mutation {
   deleteProduct(id: String!): Product
 }
 
-
-
+type Mutation {
+  updateProduct(id: String! , title: String , desc:String , price: Int): Product
+}

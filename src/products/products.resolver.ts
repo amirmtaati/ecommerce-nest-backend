@@ -14,9 +14,19 @@ export class ProductsResolver {
         return this.productsService.add(title, desc, price);
     }
 
-    @Mutation("deleteProduct")
-    async removeProduct(@Args("id") id : string) {
+    @Mutation('deleteProduct')
+    async removeProduct(@Args('id') id: string) {
         return this.productsService.deleteProduct(id);
+    }
+
+    @Mutation('updateProduct')
+    async updateProduct(
+        @Args('id') id: string,
+        @Args('title') title?: string,
+        @Args('desc') desc?: string,
+        @Args('price') price?: number,
+    ) {
+        return this.productsService.updateProduct(id , title , desc , price);
     }
 
     @Query('products')
@@ -24,8 +34,8 @@ export class ProductsResolver {
         return this.productsService.products();
     }
 
-    @Query("getProduct")
-    async getProduct(@Args("id") id: string) {
+    @Query('getProduct')
+    async getProduct(@Args('id') id: string) {
         return this.productsService.getProduct(id);
     }
 }

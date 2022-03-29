@@ -14,3 +14,9 @@ model Product {
   desc   String  @db.VarChar(255)
   price  Int
 }
+
+model User {
+  username String
+  email    String  @db.VarChar(255) @unique
+  password String
+}

@@ -19,4 +19,5 @@ model User {
   username String
   email    String  @db.VarChar(255) @unique
   password String
+  role     String  @default("user")
 }

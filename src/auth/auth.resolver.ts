@@ -1,7 +1,9 @@
-import { Resolver, Mutation, Query, Args } from '@nestjs/graphql';
+import {UseGuards} from '@nestjs/common';
+import { Resolver, Mutation, Args, Query } from '@nestjs/graphql';
 import { AuthService } from './auth.service';
+import { GqlAuthGuard } from './guards/gql.guard';
 
-@Resolver('User')
+@Resolver()
 export class AuthResolver {
     constructor(private readonly authService: AuthService) {}
     @Mutation('signup')
@@ -11,5 +13,13 @@ export class AuthResolver {
         @Args('password') password: string,
     ) {
         return this.authService.signup(username, email, password);
+    }
+
+    @Query('login')
+    async login(
+        @Args('email') email: string,
+        @Args('password') password: string,
+    ) {
+        return this.authService.login(email, password);
     }
 }

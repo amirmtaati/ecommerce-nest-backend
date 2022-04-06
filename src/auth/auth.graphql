@@ -1,9 +1,24 @@
 type User {
-  username: String,
-  email: String,
-  password: String,
+  username: String
+  email: String
+  password: String
+  role: String
 }
 
+type Token {
+  token: String!
+}
+
+
 type Mutation {
-  signup(username: String! , email: String! , password: String! , passConfirm: String!): User
+  signup(
+    username: String!
+    email: String!
+    password: String!
+    passConfirm: String!
+  ): User
+}
+
+type Query {
+  login(email: String!, password: String!): Token
 }

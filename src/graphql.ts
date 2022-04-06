@@ -11,6 +11,11 @@ export class User {
     username?: Nullable<string>;
     email?: Nullable<string>;
     password?: Nullable<string>;
+    role?: Nullable<string>;
+}
+
+export class Token {
+    token: string;
 }
 
 export abstract class IMutation {
@@ -23,16 +28,18 @@ export abstract class IMutation {
     abstract updateProduct(id: string, title?: Nullable<string>, desc?: Nullable<string>, price?: Nullable<number>): Nullable<Product> | Promise<Nullable<Product>>;
 }
 
+export abstract class IQuery {
+    abstract login(email: string, password: string): Nullable<Token> | Promise<Nullable<Token>>;
+
+    abstract products(): Nullable<Nullable<Product>[]> | Promise<Nullable<Nullable<Product>[]>>;
+
+    abstract getProduct(id: string): Nullable<Product> | Promise<Nullable<Product>>;
+}
+
 export class Product {
     title: string;
     desc?: Nullable<string>;
     price: number;
-}
-
-export abstract class IQuery {
-    abstract products(): Nullable<Nullable<Product>[]> | Promise<Nullable<Nullable<Product>[]>>;
-
-    abstract getProduct(id: string): Nullable<Product> | Promise<Nullable<Product>>;
 }
 
 type Nullable<T> = T | null;

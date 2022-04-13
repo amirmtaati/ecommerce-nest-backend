@@ -5,6 +5,7 @@ import { Role } from 'src/auth/roles/role.enum';
 import { UseGuards } from '@nestjs/common';
 import { JwtAuthGuard } from 'src/auth/guards/jwt.guard';
 import { RolesGuard } from 'src/auth/guards/roles.guard';
+import { Product } from 'src/graphql';
 
 @Resolver('Product')
 export class ProductsResolver {
@@ -12,7 +13,7 @@ export class ProductsResolver {
 
     @Mutation('createProduct')
     @UseGuards(JwtAuthGuard, RolesGuard)
-    @Roles(Role.Admin)
+    @Roles(Role.User)
     async addProduct(
         @Args('title') title: string,
         @Args('desc') desc: string,
@@ -36,7 +37,9 @@ export class ProductsResolver {
         return this.productsService.updateProduct(id, title, desc, price);
     }
 
-    @Query('products')
+    @Query(() => [Product])
+    @UseGuards(JwtAuthGuard , RolesGuard)
+    @Roles(Role.Admin)
     async products() {
         return this.productsService.products();
     }

@@ -11,10 +11,10 @@ import { Product } from 'src/graphql';
 export class ProductsResolver {
     constructor(private readonly productsService: ProductsService) {}
 
-    @Mutation('createProduct')
+    @Mutation(() => Product)
     @UseGuards(JwtAuthGuard, RolesGuard)
-    @Roles(Role.User)
-    async addProduct(
+    @Roles(Role.ADMIN)
+    async createProduct(
         @Args('title') title: string,
         @Args('desc') desc: string,
         @Args('price') price: number,
@@ -22,12 +22,16 @@ export class ProductsResolver {
         return this.productsService.add(title, desc, price);
     }
 
-    @Mutation('deleteProduct')
-    async removeProduct(@Args('id') id: string) {
+    @Mutation(() => Product)
+    @UseGuards(JwtAuthGuard, RolesGuard)
+    @Roles(Role.ADMIN)
+    async deleteProduct(@Args('id') id: string) {
         return this.productsService.deleteProduct(id);
     }
 
-    @Mutation('updateProduct')
+    @Mutation(() => Product)
+    @UseGuards(JwtAuthGuard, RolesGuard)
+    @Roles(Role.ADMIN)
     async updateProduct(
         @Args('id') id: string,
         @Args('title') title?: string,
@@ -38,8 +42,6 @@ export class ProductsResolver {
     }
 
     @Query(() => [Product])
-    @UseGuards(JwtAuthGuard , RolesGuard)
-    @Roles(Role.Admin)
     async products() {
         return this.productsService.products();
     }

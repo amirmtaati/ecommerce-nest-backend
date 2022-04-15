@@ -1,7 +1,23 @@
+type Product {
+  title: String!
+  desc:  String
+  price: Int!
+  User: User
+  userEmail: String
+}
+
 type User {
   username: String!,
   email: String!,
   password: String!,
   role: String!,
+  products: [Product]
 }
 
+type Res {
+  id: String!
+}
+
+type Mutation {
+  addToCart(id: String!):Product 
+}

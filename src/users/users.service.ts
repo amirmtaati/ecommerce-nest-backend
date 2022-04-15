@@ -37,4 +37,31 @@ export class UsersService {
             throw new HttpException("Can't create user", 400);
         }
     }
+
+    async addToCart(email: string, ProductId: string) {
+        try {
+            const product = await prisma.product.findUnique({
+                where: {
+                    id: ProductId,
+                },
+            });
+
+            const user = await prisma.user.update({
+                where: {
+                    email,
+                },
+                data: {
+                    products: {
+                        set: {
+                            title: product.title,
+                        },
+                    },
+                },
+            });
+
+            return product;
+        } catch (err) {
+            throw new HttpException(err, 400);
+        }
+    }
 }
